@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements
         ForecastAdapter.ForecastAdapterOnClickHandler,
         LoaderCallbacks<String[]>,
         // COMPLETED (3) Implement OnSharedPreferenceChangeListener on MainActivity
+
         SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();

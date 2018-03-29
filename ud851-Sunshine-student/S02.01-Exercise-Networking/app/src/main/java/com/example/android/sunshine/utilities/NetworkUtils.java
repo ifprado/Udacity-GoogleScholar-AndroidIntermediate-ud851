@@ -16,6 +16,7 @@
 package com.example.android.sunshine.utilities;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,7 +69,7 @@ public final class NetworkUtils {
      * @return The URL to use to query the weather server.
      */
     public static URL buildUrl(String locationQuery) {
-        // TODO (1) Fix this method to return the URL used to query Open Weather Map's API
+        // COMPLETED (1) Fix this method to return the URL used to query Open Weather Map's API
 
         Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                 .appendQueryParameter(QUERY_PARAM, locationQuery)
@@ -84,7 +85,7 @@ public final class NetworkUtils {
             e.printStackTrace();
         }
 
-        log.v(TAG, "Built URI " + url)
+        Log.v(TAG, "Built URI " + url);
 
         return url;
     }

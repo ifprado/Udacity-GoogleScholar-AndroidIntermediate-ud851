@@ -33,6 +33,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "weather.db";
 
 //  TODO (2) Increment the database version after altering the behavior of the table
+    private static final int DATABASE_VERSION = 2;
     /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
@@ -44,8 +45,6 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
      * use-case, we wanted to watch out for it and warn you what could happen if you mistakenly
      * version your databases.
      */
-    private static final int DATABASE_VERSION = 1;
-
     public WeatherDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -75,18 +74,18 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                  */
                 WeatherEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 
-                WeatherEntry.COLUMN_DATE       + " INTEGER, "                 +
+                WeatherEntry.COLUMN_DATE       + " INTEGER NOT NULL, "                 +
 
-                WeatherEntry.COLUMN_WEATHER_ID + " INTEGER, "                 +
+                WeatherEntry.COLUMN_WEATHER_ID + " INTEGER NOT NULL, "                 +
 
-                WeatherEntry.COLUMN_MIN_TEMP   + " REAL, "                    +
-                WeatherEntry.COLUMN_MAX_TEMP   + " REAL, "                    +
+                WeatherEntry.COLUMN_MIN_TEMP   + " REAL NOT NULL, "                    +
+                WeatherEntry.COLUMN_MAX_TEMP   + " REAL NOT NULL, "                    +
 
-                WeatherEntry.COLUMN_HUMIDITY   + " REAL, "                    +
-                WeatherEntry.COLUMN_PRESSURE   + " REAL, "                    +
+                WeatherEntry.COLUMN_HUMIDITY   + " REAL NOT NULL, "                    +
+                WeatherEntry.COLUMN_PRESSURE   + " REAL NOT NULL, "                    +
 
-                WeatherEntry.COLUMN_WIND_SPEED + " REAL, "                    +
-                WeatherEntry.COLUMN_DEGREES    + " REAL" + ");";
+                WeatherEntry.COLUMN_WIND_SPEED + " REAL NOT NULL, "                    +
+                WeatherEntry.COLUMN_DEGREES    + " REAL NOT NULL" + ");";
 
         /*
          * After we've spelled out our SQLite table creation statement above, we actually execute
@@ -111,5 +110,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         // TODO (3) Within onUpgrade, drop the weather table if it exists
         // TODO (4) call onCreate and pass in the SQLiteDatabase (passed in to onUpgrade)
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + WeatherEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
 }
